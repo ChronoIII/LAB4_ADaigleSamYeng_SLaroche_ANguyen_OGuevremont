@@ -1,3 +1,7 @@
+import model.Modele;
+import controler.Controleur;
+import vue.Fenetre;
+
 /**
  * 
  */
@@ -8,13 +12,18 @@
  */
 public class FabriqueMVC {
 
+	public FabriqueMVC() {
+		Modele modele = Modele.getInstance();
+		Controleur controleur = new Controleur(modele);
+		Fenetre fenetre = new Fenetre(modele, controleur);
+	}
 	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
+		FabriqueMVC creator = new FabriqueMVC();
 	}
 
 }

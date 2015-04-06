@@ -1,9 +1,13 @@
 package controler;
 
+import model.Modele;
+
 public class Controleur {
 	private CreateurCommande commandes;
+	private Modele modele = null;
 
-	public Controleur() {
+	public Controleur(Modele aModele) {
+		modele = aModele;
 		commandes = new CreateurCommande();
 	}
 	//ou qqch du genre

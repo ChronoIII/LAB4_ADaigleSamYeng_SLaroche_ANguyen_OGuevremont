@@ -1,13 +1,13 @@
 package model;
 
 import java.util.Observable;
+import java.awt.Image;
 
 public class Modele extends Observable {
 	private static Modele instance;
 	private Illustration illustration;
 
 	private Modele() {
-
 	}
 
 	public static Modele getInstance() {
@@ -24,6 +24,12 @@ public class Modele extends Observable {
 			throw new NoIllustrationException();
 		}
 		return illustration.getPerspectiveById(id);
+	}
+	
+	public void createIllustration(Image img){
+		if(illustration == null) {
+			illustration = new Illustration(img);
+		}
 	}
 
 	public void open(String path)// open quelque chose
