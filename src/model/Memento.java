@@ -1,13 +1,15 @@
 package model;
 
-public class Memento<Param> {
-	private Param param;
 
-	public Memento(Param param) {
-		this.param = param;
+
+public class Memento<Param> {
+	private String state;
+
+	public Memento(String state) {
+		this.state = state;
 	}
 
-	public Param getPrecedent() {
-		return (this.param);
+	public String getPrecedent() {
+		return state;
 	}
 }

@@ -2,15 +2,15 @@ package model;
 
 import java.util.ArrayList;
 
-public class GestionnaireMemento<Param> {
-	private ArrayList<Memento<Param>> mementos = new ArrayList<Memento<Param>>();
+public class GestionnaireMemento {
+	private ArrayList<Memento> mementos = new ArrayList<Memento>();
 
-	public void addParam(Memento<Param> memento) {
-		mementos.add(memento);
+	public void addState(Memento state) { //ajoute state dans la liste
+		mementos.add(state);
 	}
 
 	
-	public Memento<Param> getParam(int index) {
+	public Memento getState(int index) {
 		return mementos.get(index);
 	}
 
