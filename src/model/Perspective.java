@@ -5,6 +5,14 @@ public class Perspective {
 	private int x;
 	private int y;
 	private double zoom;
+	
+	//Amelie: J'assume que le memento vient ici selon le UML? x)
+	
+	Originator originator = new Originator();
+	GestionnaireMemento gestionnaire = new GestionnaireMemento();
+	
+	// pour changer de state il faut faire orignator.setState ("qqch") et 
+	//sauvegarder c'est gestionnaire.addState(orignator.sauvegardeAMemento());
 
 	private static int nextId = 1;
 
