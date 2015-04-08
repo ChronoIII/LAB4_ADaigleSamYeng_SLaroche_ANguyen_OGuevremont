@@ -18,12 +18,13 @@ public class VueModifiable extends JPanel implements Observer {
 	private Image image;
 	private int x;
 	private int y;
-	private double zoom;
+	private int zoom = 100;
 	private Controleur controleur;
 
 	public VueModifiable(int id, Image image, Controleur contrl) {
 		this.image = image;
-		
+		this.id = id;
+
 	}
 
 	public void update() {
@@ -36,22 +37,19 @@ public class VueModifiable extends JPanel implements Observer {
 		}
 		x = base.getX();
 		y = base.getY();
-		zoom = base.getZoom();
+		zoom = (int) (base.getZoom() * 100);
 		repaint();
 	}
 
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
-		g.drawImage(image, 0, 0, 100, 100, this);
+		g.drawImage(image, x, y, zoom, zoom, this);
 
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+	public int getId() {
+		return (this.id);
 	}
 
-	
 }

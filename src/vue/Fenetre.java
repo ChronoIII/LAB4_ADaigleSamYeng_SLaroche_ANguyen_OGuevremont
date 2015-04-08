@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -33,8 +35,10 @@ public class Fenetre extends JFrame implements Observer {
 	private Image image;
 	private Modele modele = null;
 	private Controleur controleur = null;
+	private JPanel espaceTravail;
 
 	public Fenetre(Modele aModele, Controleur aControleur) {
+		espaceTravail = new JPanel();
 		trouverImage();
 		modele = aModele;
 		controleur = aControleur;
@@ -43,14 +47,15 @@ public class Fenetre extends JFrame implements Observer {
 		vignette = new VueVignette(1, image);
 		vue1 = new VueModifiable(1, image, aControleur);
 		vue2 = new VueModifiable(2, image, aControleur);
-		
-		
-		
+
 		this.add(vignette, BorderLayout.SOUTH);
 		this.add(vue1);
 		this.add(vue2);
-		
-		
+		vue1.addMouseListener(aControleur);
+		vue1.addMouseMotionListener(aControleur);
+		vue2.addMouseMotionListener(aControleur);
+		vue2.addMouseListener(aControleur);
+		this.addMouseWheelListener(aControleur);
 
 		this.setPreferredSize(new Dimension(image.getHeight(null) * 2, image
 				.getHeight(null) * 2)); // Ajuste la dimension
