@@ -22,8 +22,14 @@ public class FabriqueMVC {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		String a = "chose";
+		System.out.println(a);
+		
+		a = "avant" + a + "arrrière";
+		System.out.println(a);
 
-		FabriqueMVC creator = new FabriqueMVC();
+		//FabriqueMVC creator = new FabriqueMVC();
 	}
 
 }
