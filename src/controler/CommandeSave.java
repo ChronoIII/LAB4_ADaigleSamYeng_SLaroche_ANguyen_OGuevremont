@@ -17,11 +17,18 @@ Historique des modifications
 
 package controler;
 
-public class CommandeSave extends Commande {
+import model.*;
 
+public class CommandeSave extends Commande {
+	
+	private String nameSave = "";
+
+	public CommandeSave() {
+		nameSave = "illu1";
+	}
+	
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		
+		Modele.getInstance().save(nameSave);
 	}
 }

@@ -18,8 +18,9 @@ Historique des modifications
 package model;
 
 import java.awt.Image;
+import java.io.Serializable;
 
-public class Illustration {
+public class Illustration implements Serializable{
 
 	private Perspective[] perspectives;
 	private Image image;
