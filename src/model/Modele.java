@@ -33,6 +33,7 @@ public class Modele extends Observable {
 	private Illustration illustration;
 
 	private Modele() {
+		createIllustration();
 	}
 
 	public static Modele getInstance() {

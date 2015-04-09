@@ -65,7 +65,7 @@ public class Perspective {
 		x = x + aVariationX;
 		y = y + aVariationY;
 		gestionnaire.addState(createMemento());
-		Modele.getInstance().notifyAll();
+		Modele.getInstance().notifyObservers();
 		System.out.println("x,y:"+x+","+y);
 	}
 
@@ -73,7 +73,7 @@ public class Perspective {
 		if (zoom + variation < 4 && zoom + variation > 0.1) {
 			zoom = zoom + variation;
 			gestionnaire.addState(createMemento());
-			Modele.getInstance().notifyAll();
+			Modele.getInstance().notifyObservers();
 			System.out.println("zoom:"+zoom);
 		}
 	}

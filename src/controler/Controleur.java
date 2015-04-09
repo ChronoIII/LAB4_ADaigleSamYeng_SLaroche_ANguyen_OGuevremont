@@ -65,6 +65,10 @@ public class Controleur implements MouseListener, MouseWheelListener,
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		this.idClique = ((VueModifiable) e.getSource()).getId();
+		//System.out.println(e.getX());
+		this.deplacementX = e.getX();
+		this.deplacementY = e.getY();
 	}
 
 	@Override
@@ -96,8 +100,15 @@ public class Controleur implements MouseListener, MouseWheelListener,
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
+		if(idClique != ((VueModifiable) arg0.getSource()).getId()){
+			this.idClique = ((VueModifiable) arg0.getSource()).getId();
+		}
+		//System.out.println(arg0.getX());
+		this.deplacementX = arg0.getX();
+		this.deplacementY = arg0.getY();
+		System.out.println(deplacementX);
 		creatorComm.deplacer(idClique, deplacementX - actuelX, deplacementX
-				- actuelX);
+				- actuelX).execute();
 		derniereAction=idEnCours;
 	}
 

@@ -66,6 +66,7 @@ public class Fenetre extends JFrame implements Observer {
 
 		trouverImage();
 		
+		
 		modele = aModele;
 		controleur = aControleur;
 		
@@ -104,6 +105,7 @@ public class Fenetre extends JFrame implements Observer {
 		
 		//undoAction.addMenuListener(aControleur);
 		exitAction.addMenuListener(aControleur.fermerActionPerformed());
+		//bouttonDeplaerRight.addMouseListener(aControleur.deplacerActionPerformed(aId, 10, 0);
 		
 		this.addMouseWheelListener(aControleur);
 
