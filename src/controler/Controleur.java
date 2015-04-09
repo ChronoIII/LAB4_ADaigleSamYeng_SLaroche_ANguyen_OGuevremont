@@ -128,8 +128,6 @@ public class Controleur implements MouseListener, MouseWheelListener,
 
 	@Override
 	public void menuSelected(MenuEvent arg0) {
-		if (arg0.getSource().equals(Fenetre.getexit())) {
-			creatorComm.fermer().execute();
-		}
+		
 	}
 }

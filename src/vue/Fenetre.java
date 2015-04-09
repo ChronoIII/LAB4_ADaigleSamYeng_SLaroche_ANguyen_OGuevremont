@@ -61,7 +61,7 @@ public class Fenetre extends JFrame implements Observer {
 	private JMenu undoAction = new JMenu("Undo");
 	private JMenu openImgAction = new JMenu("Open Image");
 	private JMenu saveAction = new JMenu("Save");
-	private static JMenu exitAction = new JMenu("Exit");
+	private JMenu exitAction = new JMenu("Exit");
 
 	public Fenetre(Modele aModele, Controleur aControleur) {
 		espaceTravail = new JPanel();
@@ -103,8 +103,8 @@ public class Fenetre extends JFrame implements Observer {
 			}
 		});
 		
-		undoAction.addMenuListener(aControleur);
-		exitAction.addMenuListener(aControleur);
+		//undoAction.addMenuListener(aControleur);
+		//exitAction.addMenuListener(aControleur);
 		
 		this.addMouseWheelListener(aControleur);
 
@@ -128,10 +128,6 @@ public class Fenetre extends JFrame implements Observer {
 		} catch (IOException e) {
 		}
 
-	}
-	
-	public static JMenu getexit() {
-		return exitAction;
 	}
 
 	@Override
