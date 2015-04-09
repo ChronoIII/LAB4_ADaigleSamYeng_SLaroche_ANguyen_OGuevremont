@@ -68,7 +68,7 @@ public class Modele extends Observable {
 
 	// public void createIllustration(Image img) {
 	public void createIllustration() {
-		File fichierImage = new File("image.jpg");
+		File fichierImage = new File("default.jpg");
 		image = null;
 		try {
 			image = ImageIO.read(fichierImage);
@@ -79,34 +79,41 @@ public class Modele extends Observable {
 		}
 	}
 
-	public void open(String path) {// open quelque chose
+	public void open(String name) {// open quelque chose
 		/*
-		 * Créé l'insatance d'un objet avec une sauvegare
+		 * Créé l'insatance d'un objet avec une sauvegarde
 		 * 
 		 * http://www.tutorialspoint.com/java/java_serialization.htm
 		 */
+		if (name.split("\\.")[1].equals("fif")) {
+			try {
+				FileInputStream fileIn = new FileInputStream(name);
+				ObjectInputStream in = new ObjectInputStream(fileIn);
+				illustration = (Illustration) in.readObject();
+				in.close();
+				fileIn.close();
+				notifierChangement();
+			} catch (IOException i) {
+				i.printStackTrace();
 
-		try {
-
-			FileInputStream fileIn = new FileInputStream("test.fif");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			illustration = (Illustration) in.readObject();
-			in.close();
-			fileIn.close();
-			notifierChangement();
-		} catch (IOException i) {
-			i.printStackTrace();
-
-			return;
-		} catch (ClassNotFoundException c) {
-			System.out.println(" Illustration not found");
-			c.printStackTrace();
-
-			return;
+				return;
+			} catch (ClassNotFoundException c) {
+				System.out.println(" Illustration not found");
+				c.printStackTrace();
+				return;
+			}
 		}
 		/*
 		 * fin du code emprunté
 		 */
+		if (name.split("\\.")[1].equals("jpg")) {
+			File fichierImage = new File(name);
+			try {
+				image = ImageIO.read(fichierImage);
+			} catch (IOException e) {
+			}
+			notifierChangement();
+		}
 	}
 
 	public void save(String path) {

@@ -47,7 +47,7 @@ public class Fenetre extends JFrame implements Observer {
 	private VueVignette vignette;
 	private VueModifiable vue1;
 	private VueModifiable vue2;
-	private VueModifiable[] vues= new VueModifiable[3];
+	private VueModifiable[] vues = new VueModifiable[3];
 	private JMenuBar menuBar;
 	private Image image;
 	private Modele modele = null;
@@ -56,45 +56,42 @@ public class Fenetre extends JFrame implements Observer {
 	private JButton undoButton = new JButton("Undo");
 	private JButton aideButton = new JButton("Aide");
 	private JMenuBar menu = new JMenuBar();
-	private JMenu undoActionMenu = new JMenu("Undo");
 	private JMenu openActionMenu = new JMenu("Open");
 	private JMenu saveActionMenu = new JMenu("Save");
 	private JMenu exitActionMenu = new JMenu("Exit");
 
 	public Fenetre(Modele aModele, Controleur aControleur) {
 		super("Fantastic Image Fisualisator - Labo4");
+		setLocation(300, 50);
 		espaceTravail = new JPanel();
 
 		trouverImage();
-		
-		
+
 		modele = aModele;
 		controleur = aControleur;
-		
-		
+
 		this.setLayout(new GridLayout(2, 2));
 		// this.add(menuBar, BorderLayout.NORTH);
 		vignette = new VueVignette(0, image, aControleur);
 		vue1 = new VueModifiable(1, image, aControleur);
 		vue2 = new VueModifiable(2, image, aControleur);
-		vues[0]=vignette;
-		vues[1]=vue1;
-		vues[2]=vue2;
-		
+		vues[0] = vignette;
+		vues[1] = vue1;
+		vues[2] = vue2;
+
 		espaceTravail.add(undoButton);
 		espaceTravail.add(aideButton);
-		
+
 		menu.add(openActionMenu);
 		menu.add(saveActionMenu);
-		menu.add(undoActionMenu);
 		menu.add(exitActionMenu);
-		
+
 		this.add(vignette);
 		this.add(vue1);
 		this.add(vue2);
 		this.add(espaceTravail);
 		this.setJMenuBar(menu);
-		
+
 		openActionMenu.addMouseListener(aControleur.openActionPerformed());
 		saveActionMenu.addMouseListener(aControleur.saveActionPerformed());
 		exitActionMenu.addMouseListener(aControleur.fermerActionPerformed());
@@ -107,10 +104,13 @@ public class Fenetre extends JFrame implements Observer {
 		vue2.addMouseListener(aControleur);
 		aideButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(aideButton, "Cliquez et glissez les images pour les déplacer. Utilisez la roulette de votre souris pour zoomer sur l'image sur laquelle votre souris plane. ");
+				JOptionPane
+						.showMessageDialog(
+								aideButton,
+								"Cliquez et glissez les images pour les déplacer. Utilisez la roulette de votre souris pour zoomer sur l'image sur laquelle votre souris plane. ");
 			}
 		});
-		
+
 		this.addMouseWheelListener(aControleur);
 
 		this.setPreferredSize(new Dimension(500, 500)); // Ajuste la dimension
@@ -127,12 +127,14 @@ public class Fenetre extends JFrame implements Observer {
 	}
 
 	public void trouverImage() {
-		image= Modele.getInstance().getImage();
+		image = Modele.getInstance().getImage();
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		trouverImage();
 		for (VueModifiable vm : vues) {
+			vm.setImage(image);
 			vm.update();
 		}
 	}

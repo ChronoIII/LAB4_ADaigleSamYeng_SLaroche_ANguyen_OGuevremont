@@ -9,26 +9,43 @@ Projet: Laboratoire # 4
 Chargé de cours : Francis Cardinal
 Chargé de laboratoire : Patrice Boucher
 Date créé: 2015-05-01
-*******************************************************
+ *******************************************************
 Historique des modifications
-*******************************************************
+ *******************************************************
 2015-05-01 Version initiale
-*******************************************************/ 
+ *******************************************************/
 
 package controler;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.Modele;
 
 public class CommandeOpen extends Commande {
 
-	private String path;
+	private String name;
 
-	public CommandeOpen(String aPath) {
-		path = aPath;
+	public CommandeOpen() {
+
 	}
 
 	@Override
 	public void execute() {
-		Modele.getInstance().open(path);
+		JFileChooser choix = new JFileChooser();
+		FileNameExtensionFilter filtreA = new FileNameExtensionFilter(
+				"FIF save", "fif");
+		FileNameExtensionFilter filtreB = new FileNameExtensionFilter("JPEG",
+				"jpg");
+		choix.addChoosableFileFilter(filtreA);
+		choix.addChoosableFileFilter(filtreB);
+		choix.showOpenDialog(null);
+		choix.resetChoosableFileFilters();
+		try {
+			name = choix.getSelectedFile().getName();
+			Modele.getInstance().open(name);
+			System.out.println(name);
+		} catch (Exception ee) {
+		}
 	}
 }

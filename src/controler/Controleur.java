@@ -125,7 +125,7 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	}
 
 	public Controleur openActionPerformed() {
-		comm = creatorComm.open(null);
+		comm = creatorComm.open();
 		try {
 			return ((Controleur) this.clone());
 		} catch (CloneNotSupportedException e) {

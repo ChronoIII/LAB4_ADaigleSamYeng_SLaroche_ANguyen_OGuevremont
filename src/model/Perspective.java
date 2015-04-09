@@ -69,7 +69,6 @@ public class Perspective implements Serializable{
 			y = y + aVariationY;
 			gestionnaire.addState(createMemento());
 			Modele.getInstance().notifierChangement();
-			System.out.println("x,y:" + x + "," + y);
 		}
 	}
 
@@ -79,7 +78,6 @@ public class Perspective implements Serializable{
 			zoom = zoom + variation;
 			gestionnaire.addState(createMemento());
 			Modele.getInstance().notifierChangement();
-			System.out.println("zoom:" + zoom);
 		}
 	}
 

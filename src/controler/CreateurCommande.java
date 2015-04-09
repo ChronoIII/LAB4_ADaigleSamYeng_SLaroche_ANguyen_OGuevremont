@@ -27,8 +27,8 @@ public class CreateurCommande {
 		return new CommandeFermer();
 	}
 
-	public CommandeOpen open(String path) {
-		return new CommandeOpen(path);
+	public CommandeOpen open() {
+		return new CommandeOpen();
 	}
 
 	public CommandeDeplacer deplacer(int aId, int aVariationX,
