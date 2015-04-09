@@ -1,6 +1,7 @@
 package vue;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
@@ -18,7 +19,7 @@ public class VueModifiable extends JPanel implements Observer {
 	private Image image;
 	private int x;
 	private int y;
-	private int zoom = 100;// en pourcentage, ex:100% est écrit 100
+	private int zoom=250;// en pourcentage, ex:100% est écrit 100 et dessinera 100px
 	private Controleur controleur;
 
 	public VueModifiable(int id, Image image, Controleur contrl) {
@@ -31,7 +32,7 @@ public class VueModifiable extends JPanel implements Observer {
 		base = Modele.getInstance().getPerspectiveById(id);
 		x = base.getX();
 		y = base.getY();
-		zoom = (int) (base.getZoom() * 100);
+		zoom = (int) (base.getZoom() * 250);
 		repaint();
 	}
 
@@ -39,7 +40,8 @@ public class VueModifiable extends JPanel implements Observer {
 
 		super.paintComponent(g);
 		g.drawImage(image, x, y, zoom, zoom, this);
-		g.drawRect(0, 0, 100, 100);
+		
+       //  g.drawRect(0, 0, 100,100);
 
 	}
 

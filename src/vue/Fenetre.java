@@ -62,6 +62,7 @@ public class Fenetre extends JFrame implements Observer {
 	private JMenu exitAction = new JMenu("Exit");
 
 	public Fenetre(Modele aModele, Controleur aControleur) {
+		super("Fantastic Image Fisualisator - Labo4");
 		espaceTravail = new JPanel();
 
 		trouverImage();
@@ -133,7 +134,6 @@ public class Fenetre extends JFrame implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		System.out.println("update been called");
 		for (VueModifiable vm : vues) {
 			vm.update();
 		}

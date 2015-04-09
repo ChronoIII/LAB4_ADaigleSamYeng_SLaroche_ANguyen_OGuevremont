@@ -72,7 +72,7 @@ public class Perspective {
 	}
 
 	public void zoomer(double variation) {
-		if (zoom + variation < 4 && zoom + variation > 0.1
+		if (zoom + variation < 10 && zoom + variation > 0.01
 				&& !(this instanceof Vignette)) {
 			zoom = zoom + variation;
 			gestionnaire.addState(createMemento());
