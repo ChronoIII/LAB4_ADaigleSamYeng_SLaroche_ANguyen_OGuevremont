@@ -9,11 +9,11 @@ Projet: Laboratoire # 4
 Chargé de cours : Francis Cardinal
 Chargé de laboratoire : Patrice Boucher
 Date créé: 2015-05-01
-*******************************************************
+ *******************************************************
 Historique des modifications
-*******************************************************
+ *******************************************************
 2015-05-01 Version initiale
-*******************************************************/ 
+ *******************************************************/
 
 package model;
 
@@ -22,14 +22,13 @@ public class Perspective {
 	private int x;
 	private int y;
 	private double zoom;
-	
-	//Amelie: J'assume que le memento vient ici selon le UML? x)
-	
-	Originator originator = new Originator();
+
+	// Amelie: J'assume que le memento vient ici selon le UML? x)
+
 	GestionnaireMemento gestionnaire = new GestionnaireMemento();
-	
-	// pour changer de state il faut faire orignator.setState ("qqch") et 
-	//sauvegarder c'est gestionnaire.addState(orignator.sauvegardeAMemento());
+
+	// pour changer de state il faut faire orignator.setState ("qqch") et
+	// sauvegarder c'est gestionnaire.addState(orignator.sauvegardeAMemento());
 
 	private static int nextId = 1;
 
@@ -65,22 +64,33 @@ public class Perspective {
 	public void deplacer(int aVariationX, int aVariationY) {
 		x = x + aVariationX;
 		y = y + aVariationY;
+		gestionnaire.addState(createMemento());
 		Modele.getInstance().notifyAll();
+		System.out.println("x,y:"+x+","+y);
 	}
 
 	public void zoomer(double variation) {
-		zoom = zoom + variation;
-		Modele.getInstance().notifyAll();
+		if (zoom + variation < 4 && zoom + variation > 0.1) {
+			zoom = zoom + variation;
+			gestionnaire.addState(createMemento());
+			Modele.getInstance().notifyAll();
+			System.out.println("zoom:"+zoom);
+		}
 	}
 
 	public void undo() {
-		// À FAIRE
-		// utiliser memento i guess
+		setMemento(gestionnaire.getPreviousState());
 	}
-
-	public void getLastState() {
-
+	public void setMemento(Memento aMemento){
+		String state = aMemento.getState();
+		x=Integer.parseInt(state.split(";")[0]);
+		y=Integer.parseInt(state.split(";")[1]);
+		zoom=Double.parseDouble(state.split(";")[2]);
 	}
+	public Memento createMemento(){
+		return new Memento(x+";"+y+";"+zoom);
+	}
+	
 
 	public int getId() {
 		return id;

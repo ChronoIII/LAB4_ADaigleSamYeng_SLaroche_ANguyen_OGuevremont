@@ -34,12 +34,7 @@ public class CommandeDeplacer extends Commande {
 	@Override
 	public void execute() {
 		Perspective aModif = null;
-		try {
-			aModif = Modele.getInstance().getPerspectiveById(id);
-		} catch (NoIllustrationException e) {
-			System.out.println(e.getMessage());
-			System.exit(1);
-		}
+		aModif = Modele.getInstance().getPerspectiveById(id);
 		aModif.deplacer(variationX, variationY);
 	}
 

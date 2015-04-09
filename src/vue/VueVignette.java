@@ -19,6 +19,10 @@ public class VueVignette extends JPanel {
 
 	}
 
+	public int getId() {
+		return id;
+	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

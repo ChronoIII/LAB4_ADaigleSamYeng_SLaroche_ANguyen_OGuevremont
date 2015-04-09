@@ -28,12 +28,7 @@ public class VueModifiable extends JPanel implements Observer {
 
 	public void update() {
 		Perspective base = null;
-		try {
-			base = Modele.getInstance().getPerspectiveById(id);
-		} catch (NoIllustrationException e) {
-			System.out.println(e.getMessage());
-			System.exit(1);
-		}
+		base = Modele.getInstance().getPerspectiveById(id);
 		x = base.getX();
 		y = base.getY();
 		zoom = (int) (base.getZoom() * 100);

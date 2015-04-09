@@ -22,13 +22,21 @@ import java.util.ArrayList;
 public class GestionnaireMemento {
 	private ArrayList<Memento> mementos = new ArrayList<Memento>();
 
-	public void addState(Memento state) { //ajoute state dans la liste
-		mementos.add(state);
+	public void addState(Memento aMemento) { //ajoute state dans la liste
+		mementos.add(aMemento);
 	}
 
 	
 	public Memento getState(int index) {
 		return mementos.get(index);
+	}
+	
+	public Memento getPreviousState(){
+		Memento toReturn = mementos.get(size()-2);
+		mementos.remove(mementos.get(size()-1));
+		mementos.remove(mementos.get(size()-1));
+		return toReturn;
+		
 	}
 
 	/**

@@ -17,14 +17,14 @@ Historique des modifications
 
 package model;
 
-public class Memento<Param> {
+public class Memento {
 	private String state;
 
 	public Memento(String state) {
 		this.state = state;
 	}
 
-	public String getPrecedent() {
+	public String getState() {
 		return state;
 	}
 }

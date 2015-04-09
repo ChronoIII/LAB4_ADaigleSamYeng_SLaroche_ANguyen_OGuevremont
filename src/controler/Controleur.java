@@ -27,11 +27,11 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JMenu;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import vue.Fenetre;
-import vue.VueModifiable;
+import vue.*;
 import model.Modele;
 
 public class Controleur implements MouseListener, MouseWheelListener,
@@ -61,7 +61,7 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	// commande = commandes.deplacer();
 	// commande.execute();}
 	// par exemple
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		this.idClique = ((VueModifiable) e.getSource()).getId();
@@ -72,30 +72,28 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		this.idEnCours = ((VueModifiable) e.getSource()).getId();
-
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		this.idEnCours = 0;
-
+		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		this.idEnCours = ((VueModifiable) e.getSource()).getId();
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		this.idClique = 0;
-
 	}
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
-		creatorComm.zoom(idEnCours, arg0.getWheelRotation());
-		derniereAction=idEnCours;
-
+		creatorComm.zoom(idEnCours, arg0.getWheelRotation()).execute();
+		derniereAction = idEnCours;
 	}
 
 	@Override
@@ -117,17 +115,17 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	@Override
 	public void menuCanceled(MenuEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void menuDeselected(MenuEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void menuSelected(MenuEvent arg0) {
-		
+
 	}
 }

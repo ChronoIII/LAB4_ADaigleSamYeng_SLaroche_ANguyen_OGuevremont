@@ -20,7 +20,7 @@ package controler;
 public class CreateurCommande {
 
 	public CommandeZoom zoom(int aId, int aVariation) {
-		return new CommandeZoom(aId, aVariation);
+		return new CommandeZoom(aId, -aVariation*0.1);
 	}
 
 	public CommandeFermer fermer() {

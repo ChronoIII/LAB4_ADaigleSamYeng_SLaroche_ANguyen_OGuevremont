@@ -35,8 +35,6 @@ import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import com.sun.prism.Graphics;
-
 import controler.*;
 import model.*;
 
@@ -59,7 +57,7 @@ public class Fenetre extends JFrame implements Observer {
 	private JButton aide = new JButton("Aide");
 	private JMenuBar menu = new JMenuBar();
 	private JMenu undoAction = new JMenu("Undo");
-	private JMenu openImgAction = new JMenu("Open Image");
+	private JMenu openAction = new JMenu("Open");
 	private JMenu saveAction = new JMenu("Save");
 	private JMenu exitAction = new JMenu("Exit");
 
@@ -81,7 +79,7 @@ public class Fenetre extends JFrame implements Observer {
 		espaceTravail.add(undo);
 		espaceTravail.add(aide);
 		
-		menu.add(openImgAction);
+		menu.add(openAction);
 		menu.add(saveAction);
 		menu.add(undoAction);
 		menu.add(exitAction);
@@ -92,6 +90,7 @@ public class Fenetre extends JFrame implements Observer {
 		this.add(espaceTravail);
 		this.setJMenuBar(menu);
 		
+		openAction.addMouseListener(aControleur);
 		undo.addActionListener(aControleur);
 		vue1.addMouseListener(aControleur);
 		vue1.addMouseMotionListener(aControleur);

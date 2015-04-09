@@ -9,21 +9,24 @@ Projet: Laboratoire # 4
 Chargé de cours : Francis Cardinal
 Chargé de laboratoire : Patrice Boucher
 Date créé: 2015-05-01
-*******************************************************
+ *******************************************************
 Historique des modifications
-*******************************************************
+ *******************************************************
 2015-05-01 Version initiale
-*******************************************************/ 
+ *******************************************************/
 
 package model;
 
 import java.util.Observable;
 import java.awt.Image;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import javax.imageio.ImageIO;
 
 public class Modele extends Observable {
 	private static Modele instance;
@@ -35,22 +38,29 @@ public class Modele extends Observable {
 	public static Modele getInstance() {
 		if (instance == null) {
 			instance = new Modele();
+			
 		}
 		return instance;
 	}
 
-	public Perspective getPerspectiveById(int id)
-			throws NoIllustrationException {
+	public Perspective getPerspectiveById(int id) {
 		if (illustration == null) {// in which case you should paint a black
-									// rectangle
-			throw new NoIllustrationException();
+			System.out.println("Il n'y a pas d'illustation");// rectangle
+			return null;
 		}
 		return illustration.getPerspectiveById(id);
 	}
-	
-	public void createIllustration(Image img){
-		if(illustration == null) {
-			illustration = new Illustration(img);
+
+	//public void createIllustration(Image img) {
+	public void createIllustration() {
+		if (illustration == null) {
+			File fichierImage = new File("image.jpg");
+			Image image = null;
+			try {
+				image = ImageIO.read(fichierImage);
+			} catch (IOException e) {
+			}
+			illustration = new Illustration(image);
 		}
 	}
 
@@ -60,12 +70,15 @@ public class Modele extends Observable {
 		 * 
 		 * http://www.tutorialspoint.com/java/java_serialization.htm
 		 */
+
 		try {
+
 			FileInputStream fileIn = new FileInputStream(path);
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			illustration = (Illustration) in.readObject();
 			in.close();
 			fileIn.close();
+
 		} catch (IOException i) {
 			i.printStackTrace();
 
@@ -77,8 +90,8 @@ public class Modele extends Observable {
 			return;
 		}
 		/*
-		  *  fin du code empeinter
-		  */
+		 * fin du code emprunté
+		 */
 	}
 
 	public void save(String path) {
@@ -97,8 +110,8 @@ public class Modele extends Observable {
 		} catch (IOException i) {
 			i.printStackTrace();
 		}
-		 /*
-		  *  fin du code empeinter
-		  */
+		/*
+		 * fin du code emprunté
+		 */
 	}
 }

@@ -9,32 +9,37 @@ Projet: Laboratoire # 4
 Chargé de cours : Francis Cardinal
 Chargé de laboratoire : Patrice Boucher
 Date créé: 2015-05-01
-*******************************************************
+ *******************************************************
 Historique des modifications
-*******************************************************
+ *******************************************************
 2015-05-01 Version initiale
-*******************************************************/ 
+ *******************************************************/
 
 package model;
 
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 
-public class Illustration implements Serializable{
+import javax.imageio.ImageIO;
+
+public class Illustration implements Serializable {
 
 	private Perspective[] perspectives;
 	private Image image;
 
-	public Illustration(Image aImage){
+	public Illustration(Image aImage) {
+		image=aImage;
 		Perspective vignette = new Vignette();
 		Perspective premPers = new Perspective();
 		Perspective deuxPers = new Perspective();
 		perspectives = new Perspective[3];
-		perspectives[0]=vignette;
-		perspectives[1]=premPers;
-		perspectives[2]=deuxPers;
+		perspectives[0] = vignette;
+		perspectives[1] = premPers;
+		perspectives[2] = deuxPers;
 	}
-	
+
 	public Perspective getPerspectiveById(int id) {
 		Perspective perspective = new Perspective();
 		for (Perspective p : perspectives) {
@@ -46,4 +51,9 @@ public class Illustration implements Serializable{
 		return perspective;
 	}
 
+	public Image getImage() {
+		return image;
+	}
+
+	
 }

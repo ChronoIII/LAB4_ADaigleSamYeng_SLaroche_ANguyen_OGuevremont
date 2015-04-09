@@ -16,6 +16,7 @@ public class FabriqueMVC {
 		Modele modele = Modele.getInstance();
 		Controleur controleur = new Controleur(modele);
 		Fenetre fenetre = new Fenetre(modele, controleur);
+		modele.addObserver(fenetre);
 	}
 	
 	/**
