@@ -38,6 +38,7 @@ public class Controleur implements MouseListener, MouseWheelListener,
 		MouseMotionListener, ActionListener, MenuListener {
 
 	private CreateurCommande creatorComm;
+	private Commande comm;
 	private Modele modele = null;
 	private int idEnCours;
 	private int idClique;
@@ -64,9 +65,6 @@ public class Controleur implements MouseListener, MouseWheelListener,
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		this.idClique = ((VueModifiable) e.getSource()).getId();
-		this.deplacementX = e.getX();
-		this.deplacementY = e.getY();
 	}
 
 	@Override
@@ -126,6 +124,32 @@ public class Controleur implements MouseListener, MouseWheelListener,
 
 	@Override
 	public void menuSelected(MenuEvent arg0) {
-
+		comm.execute();
+	}
+	
+	public Controleur fermerActionPerformed() {
+		comm = creatorComm.fermer();
+		return this;
+	}
+	
+	public Controleur openActionPerformed() {
+		return this;
+	}
+	
+	public Controleur saveActionPerformed() {
+		return this;
+	}
+	
+	public Controleur zoomActionPerformed() {
+		return this;
+	}
+	
+	public Controleur deplacerActionPerformed(int aId, int aVariationX, int aVariationY) {
+		comm = creatorComm.deplacer(aId, aVariationX, aVariationY);
+		return this;
+	}
+	
+	public Controleur undoActionPerformed(){
+		return this;
 	}
 }
