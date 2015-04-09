@@ -18,23 +18,12 @@ Historique des modifications
 package model;
 
 public class Vignette extends Perspective {
-	private int x = 0;
-	private int y = 0;
-	private double zoom = 1.0;
+	private static int x = 0;
+	private static int y = 0;
+	private static double zoom = 1.0;
 
 	public Vignette() {
-		super();
+		super(x,y,zoom);
 	}
 	
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public double getZoom() {
-		return zoom;
-	}
 }

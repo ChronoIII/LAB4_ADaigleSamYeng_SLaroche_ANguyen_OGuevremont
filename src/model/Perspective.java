@@ -30,7 +30,7 @@ public class Perspective {
 	// pour changer de state il faut faire orignator.setState ("qqch") et
 	// sauvegarder c'est gestionnaire.addState(orignator.sauvegardeAMemento());
 
-	private static int nextId = 1;
+	private static int nextId = 0;
 
 	/**
 	 * Créer une perspective à partir de rien
@@ -45,20 +45,20 @@ public class Perspective {
 	}
 
 	/**
-	 * Créer une perspective à partir d'une sauvegarde (donc les paramètres sont
-	 * déjà choisis)
+	 * Créer une perspective à partir de paramètres déjà choisis
 	 * 
 	 * @param aX
 	 * @param aY
 	 * @param aZoom
 	 * @param aId
 	 */
-	public Perspective(int aX, int aY, double aZoom, int aId) {
+	public Perspective(int aX, int aY, double aZoom) {
 		x = aX;
 		y = aY;
 		zoom = aZoom;
 
-		id = aId;
+		id = nextId;
+		nextId++;
 	}
 
 	public void deplacer(int aVariationX, int aVariationY) {

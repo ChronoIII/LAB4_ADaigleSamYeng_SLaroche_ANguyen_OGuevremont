@@ -74,6 +74,7 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	public void mouseEntered(MouseEvent e) {
 		if (e.getSource() instanceof VueModifiable) {
 			this.idEnCours = ((VueModifiable) e.getSource()).getId();
+			System.out.println("idEnCours:"+idEnCours);
 		}
 	}
 

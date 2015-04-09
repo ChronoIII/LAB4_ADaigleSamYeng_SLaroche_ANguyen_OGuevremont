@@ -18,7 +18,7 @@ public class VueModifiable extends JPanel implements Observer {
 	private Image image;
 	private int x;
 	private int y;
-	private int zoom = 100;//en pourcentage, ex:100% est écrit 100
+	private int zoom = 100;// en pourcentage, ex:100% est écrit 100
 	private Controleur controleur;
 
 	public VueModifiable(int id, Image image, Controleur contrl) {
@@ -39,8 +39,7 @@ public class VueModifiable extends JPanel implements Observer {
 
 		super.paintComponent(g);
 		g.drawImage(image, x, y, zoom, zoom, this);
-		g.drawRect(0,0 , 100, 100);
-		
+		g.drawRect(0, 0, 100, 100);
 
 	}
 
@@ -48,10 +47,14 @@ public class VueModifiable extends JPanel implements Observer {
 		return (this.id);
 	}
 
+	public Image getImage() {
+		return image;
+	}
+
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

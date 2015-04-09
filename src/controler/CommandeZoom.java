@@ -34,7 +34,6 @@ public class CommandeZoom extends Commande {
 	public void execute() {
 		Perspective aModif = null;
 		aModif = Modele.getInstance().getPerspectiveById(id);
-		System.out.println(id);
 		aModif.zoomer(variation);
 	}
 }

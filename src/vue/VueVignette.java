@@ -11,8 +11,6 @@ import javax.swing.JPanel;
 import controler.Controleur;
 
 public class VueVignette extends VueModifiable {
-	private int id;
-	private Image image;
 
 	public VueVignette(int id, Image image, Controleur aControleur) {
 		super(id, image, aControleur);
@@ -21,7 +19,7 @@ public class VueVignette extends VueModifiable {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 0, 0, 100, 100, this);
+		g.drawImage(super.getImage(), 0, 0, 100, 100, this);
 		g.drawRect(0, 0, 100, 100);
 	}
 }

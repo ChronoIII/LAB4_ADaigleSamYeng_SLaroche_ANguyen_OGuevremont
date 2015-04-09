@@ -96,6 +96,8 @@ public class Fenetre extends JFrame implements Observer {
 		
 		openAction.addMouseListener(aControleur);
 		undo.addActionListener(aControleur);
+		vignette.addMouseListener(aControleur);
+		vignette.addMouseMotionListener(aControleur);
 		vue1.addMouseListener(aControleur);
 		vue1.addMouseMotionListener(aControleur);
 		vue2.addMouseMotionListener(aControleur);
