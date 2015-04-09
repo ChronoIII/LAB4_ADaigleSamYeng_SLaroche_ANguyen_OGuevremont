@@ -53,13 +53,13 @@ public class Fenetre extends JFrame implements Observer {
 	private Modele modele = null;
 	private Controleur controleur = null;
 	private JPanel espaceTravail;
-	private JButton undo = new JButton("Undo");
-	private JButton aide = new JButton("Aide");
+	private JButton undoButton = new JButton("Undo");
+	private JButton aideButton = new JButton("Aide");
 	private JMenuBar menu = new JMenuBar();
-	private JMenu undoAction = new JMenu("Undo");
-	private JMenu openAction = new JMenu("Open");
-	private JMenu saveAction = new JMenu("Save");
-	private JMenu exitAction = new JMenu("Exit");
+	private JMenu undoActionMenu = new JMenu("Undo");
+	private JMenu openActionMenu = new JMenu("Open");
+	private JMenu saveActionMenu = new JMenu("Save");
+	private JMenu exitActionMenu = new JMenu("Exit");
 
 	public Fenetre(Modele aModele, Controleur aControleur) {
 		super("Fantastic Image Fisualisator - Labo4");
@@ -81,13 +81,13 @@ public class Fenetre extends JFrame implements Observer {
 		vues[1]=vue1;
 		vues[2]=vue2;
 		
-		espaceTravail.add(undo);
-		espaceTravail.add(aide);
+		espaceTravail.add(undoButton);
+		espaceTravail.add(aideButton);
 		
-		menu.add(openAction);
-		menu.add(saveAction);
-		menu.add(undoAction);
-		menu.add(exitAction);
+		menu.add(openActionMenu);
+		menu.add(saveActionMenu);
+		menu.add(undoActionMenu);
+		menu.add(exitActionMenu);
 		
 		this.add(vignette);
 		this.add(vue1);
@@ -95,22 +95,22 @@ public class Fenetre extends JFrame implements Observer {
 		this.add(espaceTravail);
 		this.setJMenuBar(menu);
 		
-		openAction.addMouseListener(aControleur);
-		undo.addActionListener(aControleur);
+		openActionMenu.addMouseListener(aControleur);
+		undoButton.addActionListener(aControleur.undoActionPerformed());
 		vignette.addMouseListener(aControleur);
 		vignette.addMouseMotionListener(aControleur);
 		vue1.addMouseListener(aControleur);
 		vue1.addMouseMotionListener(aControleur);
 		vue2.addMouseMotionListener(aControleur);
 		vue2.addMouseListener(aControleur);
-		aide.addActionListener(new ActionListener() {
+		aideButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(aide, "Cliquez et glissez les images pour les déplacer. Utilisez la roulette de votre souris pour zoomer sur l'image sur laquelle votre souris plane. ");
+				JOptionPane.showMessageDialog(aideButton, "Cliquez et glissez les images pour les déplacer. Utilisez la roulette de votre souris pour zoomer sur l'image sur laquelle votre souris plane. ");
 			}
 		});
 		
 		//undoAction.addMenuListener(aControleur);
-		exitAction.addMenuListener(aControleur.fermerActionPerformed());
+		exitActionMenu.addMenuListener(aControleur.fermerActionPerformed());
 		//bouttonDeplaerRight.addMouseListener(aControleur.deplacerActionPerformed(aId, 10, 0);
 		
 		this.addMouseWheelListener(aControleur);

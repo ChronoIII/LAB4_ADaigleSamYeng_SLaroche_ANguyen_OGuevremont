@@ -40,8 +40,8 @@ public class CreateurCommande {
 		return new CommandeSave();
 	}
 
-	public CommandeUndo undo(int id) {
-		return new CommandeUndo(id);
+	public CommandeUndo undo(Controleur aC) {
+		return new CommandeUndo(aC);
 	}
 
 }

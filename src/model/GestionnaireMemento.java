@@ -36,7 +36,6 @@ public class GestionnaireMemento {
 		mementos.remove(mementos.get(size()-1));
 		mementos.remove(mementos.get(size()-1));
 		return toReturn;
-		
 	}
 
 	/**

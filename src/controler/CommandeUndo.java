@@ -22,16 +22,16 @@ import model.Perspective;
 
 public class CommandeUndo extends Commande {
 
-	private int id;
+	private Controleur controleur;
 
-	public CommandeUndo(int aId) {
-		id = aId;
+	public CommandeUndo(Controleur aControleur) {
+		controleur = aControleur;
 	}
 
 	@Override
 	public void execute() {
 		Perspective aModif = null;
-		aModif = Modele.getInstance().getPerspectiveById(id);
+		aModif = Modele.getInstance().getPerspectiveById(controleur.getIdEnCours());
 		aModif.undo();
 	}
 }

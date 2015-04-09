@@ -35,14 +35,14 @@ import vue.*;
 import model.Modele;
 
 public class Controleur implements MouseListener, MouseWheelListener,
-		MouseMotionListener, ActionListener, MenuListener {
+		MouseMotionListener, ActionListener, MenuListener, Cloneable {
 
 	private CreateurCommande creatorComm;
 	private Commande comm;
 	private Modele modele = null;
 	private int idEnCours;
 	private int idClique;
-	//points de début et de fin d'une translation
+	// points de début et de fin d'une translation
 	private int debutX;
 	private int debutY;
 	private int finX;
@@ -67,22 +67,24 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		this.idClique = ((VueModifiable) e.getSource()).getId();
-		
+
+	}
+
+	public int getIdEnCours() {
+		return idEnCours;
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		if (e.getSource() instanceof VueModifiable) {
 			this.idEnCours = ((VueModifiable) e.getSource()).getId();
-			System.out.println("idEnCours:"+idEnCours);
+			System.out.println("idEnCours:" + idEnCours);
 		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		if (debutX == 0 && debutY == 0) {//s'il n'y a pas de drag en cours
-			this.idEnCours = 0;
-		}
+		
 	}
 
 	@Override
@@ -117,16 +119,6 @@ public class Controleur implements MouseListener, MouseWheelListener,
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
-		/*if(idClique != ((VueModifiable) arg0.getSource()).getId()){
-			this.idClique = ((VueModifiable) arg0.getSource()).getId();
-		}
-		//System.out.println(arg0.getX());
-		this.deplacementX = arg0.getX();
-		this.deplacementY = arg0.getY();
-		System.out.println(deplacementX);
-		creatorComm.deplacer(idClique, deplacementX - actuelX, deplacementX
-				- actuelX).execute();
-		derniereAction=idEnCours;*/
 	}
 
 	@Override
@@ -135,7 +127,7 @@ public class Controleur implements MouseListener, MouseWheelListener,
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		creatorComm.undo(derniereAction);
+		comm.execute();
 	}
 
 	@Override
@@ -154,30 +146,40 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	public void menuSelected(MenuEvent arg0) {
 		comm.execute();
 	}
-	
+
 	public Controleur fermerActionPerformed() {
 		comm = creatorComm.fermer();
-		return this;
+		try {
+			return ((Controleur) this.clone());
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
 	}
-	
+
 	public Controleur openActionPerformed() {
 		return this;
 	}
-	
+
 	public Controleur saveActionPerformed() {
 		return this;
 	}
-	
+
 	public Controleur zoomActionPerformed() {
 		return this;
 	}
-	
-	public Controleur deplacerActionPerformed(int aId, int aVariationX, int aVariationY) {
+
+	public Controleur deplacerActionPerformed(int aId, int aVariationX,
+			int aVariationY) {
 		comm = creatorComm.deplacer(aId, aVariationX, aVariationY);
 		return this;
 	}
-	
-	public Controleur undoActionPerformed(){
-		return this;
+
+	public Controleur undoActionPerformed() {
+		comm = creatorComm.undo(this);
+		try {
+			return ((Controleur) this.clone());
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
 	}
 }

@@ -82,9 +82,13 @@ public class Perspective {
 	}
 
 	public void undo() {
-		setMemento(gestionnaire.getPreviousState());
-		Modele.getInstance().notifierChangement();
+		try {
+			setMemento(gestionnaire.getPreviousState());
+			Modele.getInstance().notifierChangement();
 		System.out.println("undoID:" + id);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Il n'y a pas d'action précédente pour id:"+id);
+		}
 	}
 
 	public void setMemento(Memento aMemento) {
