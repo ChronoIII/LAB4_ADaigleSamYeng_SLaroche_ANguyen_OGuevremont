@@ -103,7 +103,7 @@ public class Fenetre extends JFrame implements Observer {
 		});
 		
 		//undoAction.addMenuListener(aControleur);
-		//exitAction.addMenuListener(aControleur);
+		exitAction.addMenuListener(aControleur.fermerActionPerformed());
 		
 		this.addMouseWheelListener(aControleur);
 
