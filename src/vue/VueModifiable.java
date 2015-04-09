@@ -18,7 +18,7 @@ public class VueModifiable extends JPanel implements Observer {
 	private Image image;
 	private int x;
 	private int y;
-	private int zoom = 100;
+	private int zoom = 100;//en pourcentage, ex:100% est écrit 100
 	private Controleur controleur;
 
 	public VueModifiable(int id, Image image, Controleur contrl) {

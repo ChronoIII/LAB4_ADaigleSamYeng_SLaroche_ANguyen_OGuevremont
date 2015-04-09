@@ -23,9 +23,9 @@ public class Vignette extends Perspective {
 	private double zoom = 1.0;
 
 	public Vignette() {
-
+		super();
 	}
-
+	
 	public int getX() {
 		return x;
 	}

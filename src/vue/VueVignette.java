@@ -10,17 +10,12 @@ import javax.swing.JPanel;
 
 import controler.Controleur;
 
-public class VueVignette extends JPanel {
+public class VueVignette extends VueModifiable {
 	private int id;
 	private Image image;
 
-	public VueVignette(int id, Image image) {
-		this.image = image;
-
-	}
-
-	public int getId() {
-		return id;
+	public VueVignette(int id, Image image, Controleur aControleur) {
+		super(id, image, aControleur);
 	}
 
 	@Override

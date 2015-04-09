@@ -62,35 +62,41 @@ public class Perspective {
 	}
 
 	public void deplacer(int aVariationX, int aVariationY) {
-		x = x + aVariationX;
-		y = y + aVariationY;
-		gestionnaire.addState(createMemento());
-		Modele.getInstance().notifyObservers();
-		System.out.println("x,y:"+x+","+y);
+		if (!(this instanceof Vignette)) {
+			x = x + aVariationX;
+			y = y + aVariationY;
+			gestionnaire.addState(createMemento());
+			Modele.getInstance().notifierChangement();
+			System.out.println("x,y:" + x + "," + y);
+		}
 	}
 
 	public void zoomer(double variation) {
-		if (zoom + variation < 4 && zoom + variation > 0.1) {
+		if (zoom + variation < 4 && zoom + variation > 0.1
+				&& !(this instanceof Vignette)) {
 			zoom = zoom + variation;
 			gestionnaire.addState(createMemento());
-			Modele.getInstance().notifyObservers();
-			System.out.println("zoom:"+zoom);
+			Modele.getInstance().notifierChangement();
+			System.out.println("zoom:" + zoom);
 		}
 	}
 
 	public void undo() {
 		setMemento(gestionnaire.getPreviousState());
+		Modele.getInstance().notifierChangement();
+		System.out.println("undoID:" + id);
 	}
-	public void setMemento(Memento aMemento){
+
+	public void setMemento(Memento aMemento) {
 		String state = aMemento.getState();
-		x=Integer.parseInt(state.split(";")[0]);
-		y=Integer.parseInt(state.split(";")[1]);
-		zoom=Double.parseDouble(state.split(";")[2]);
+		x = Integer.parseInt(state.split(";")[0]);
+		y = Integer.parseInt(state.split(";")[1]);
+		zoom = Double.parseDouble(state.split(";")[2]);
 	}
-	public Memento createMemento(){
-		return new Memento(x+";"+y+";"+zoom);
+
+	public Memento createMemento() {
+		return new Memento(x + ";" + y + ";" + zoom);
 	}
-	
 
 	public int getId() {
 		return id;

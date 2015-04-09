@@ -42,10 +42,11 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	private Modele modele = null;
 	private int idEnCours;
 	private int idClique;
-	private int deplacementX;
-	private int deplacementY;
-	private int actuelX;
-	private int actuelY;
+	//points de début et de fin d'une translation
+	private int debutX;
+	private int debutY;
+	private int finX;
+	private int finY;
 	private int derniereAction;
 
 	/**
@@ -66,30 +67,45 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		this.idClique = ((VueModifiable) e.getSource()).getId();
-		//System.out.println(e.getX());
-		this.deplacementX = e.getX();
-		this.deplacementY = e.getY();
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		this.idEnCours = ((VueModifiable) e.getSource()).getId();
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		this.idEnCours = 0;
 		
 	}
 
 	@Override
+	public void mouseEntered(MouseEvent e) {
+		if (e.getSource() instanceof VueModifiable) {
+			this.idEnCours = ((VueModifiable) e.getSource()).getId();
+		}
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		if (debutX == 0 && debutY == 0) {//s'il n'y a pas de drag en cours
+			this.idEnCours = 0;
+		}
+	}
+
+	@Override
 	public void mousePressed(MouseEvent e) {
-		this.idEnCours = ((VueModifiable) e.getSource()).getId();
+		if (e.getSource() instanceof VueModifiable) {
+			this.idEnCours = ((VueModifiable) e.getSource()).getId();
+			debutX = e.getX();
+			debutY = e.getY();
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		this.idClique = 0;
+		if (debutX != 0 && debutY != 0) {
+			finX = e.getX();
+			finY = e.getY();
+			creatorComm.deplacer(idEnCours, finX - debutX, finY - debutY)
+					.execute();
+		}
+		debutX = 0;
+		debutY = 0;
+		finX = 0;
+		finY = 0;
+		derniereAction = idEnCours;
 	}
 
 	@Override
@@ -100,7 +116,7 @@ public class Controleur implements MouseListener, MouseWheelListener,
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
-		if(idClique != ((VueModifiable) arg0.getSource()).getId()){
+		/*if(idClique != ((VueModifiable) arg0.getSource()).getId()){
 			this.idClique = ((VueModifiable) arg0.getSource()).getId();
 		}
 		//System.out.println(arg0.getX());
@@ -109,7 +125,7 @@ public class Controleur implements MouseListener, MouseWheelListener,
 		System.out.println(deplacementX);
 		creatorComm.deplacer(idClique, deplacementX - actuelX, deplacementX
 				- actuelX).execute();
-		derniereAction=idEnCours;
+		derniereAction=idEnCours;*/
 	}
 
 	@Override

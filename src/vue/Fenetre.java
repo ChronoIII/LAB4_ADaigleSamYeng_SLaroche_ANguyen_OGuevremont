@@ -47,7 +47,7 @@ public class Fenetre extends JFrame implements Observer {
 	private VueVignette vignette;
 	private VueModifiable vue1;
 	private VueModifiable vue2;
-	private VueModifiable[] vues;
+	private VueModifiable[] vues= new VueModifiable[3];
 	private JMenuBar menuBar;
 	private Image image;
 	private Modele modele = null;
@@ -73,9 +73,12 @@ public class Fenetre extends JFrame implements Observer {
 		
 		this.setLayout(new GridLayout(2, 2));
 		// this.add(menuBar, BorderLayout.NORTH);
-		vignette = new VueVignette(1, image);
+		vignette = new VueVignette(0, image, aControleur);
 		vue1 = new VueModifiable(1, image, aControleur);
 		vue2 = new VueModifiable(2, image, aControleur);
+		vues[0]=vignette;
+		vues[1]=vue1;
+		vues[2]=vue2;
 		
 		espaceTravail.add(undo);
 		espaceTravail.add(aide);
@@ -85,7 +88,7 @@ public class Fenetre extends JFrame implements Observer {
 		menu.add(undoAction);
 		menu.add(exitAction);
 		
-		this.add(vignette, BorderLayout.SOUTH);
+		this.add(vignette);
 		this.add(vue1);
 		this.add(vue2);
 		this.add(espaceTravail);
@@ -123,16 +126,12 @@ public class Fenetre extends JFrame implements Observer {
 	}
 
 	public void trouverImage() {
-		File fichierImage = new File("image.jpg");
-		try {
-			image = ImageIO.read(fichierImage);
-		} catch (IOException e) {
-		}
-
+		image= Modele.getInstance().getIllustration().getImage();
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		System.out.println("update been called");
 		for (VueModifiable vm : vues) {
 			vm.update();
 		}

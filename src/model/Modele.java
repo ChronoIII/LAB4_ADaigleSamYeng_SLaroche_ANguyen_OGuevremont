@@ -39,9 +39,14 @@ public class Modele extends Observable {
 	public static Modele getInstance() {
 		if (instance == null) {
 			instance = new Modele();
-			
+
 		}
 		return instance;
+	}
+
+	public void notifierChangement() {
+		super.setChanged();
+		super.notifyObservers();
 	}
 
 	public Perspective getPerspectiveById(int id) {
@@ -52,7 +57,11 @@ public class Modele extends Observable {
 		return illustration.getPerspectiveById(id);
 	}
 
-	//public void createIllustration(Image img) {
+	public Illustration getIllustration() {
+		return illustration;
+	}
+
+	// public void createIllustration(Image img) {
 	public void createIllustration() {
 		if (illustration == null) {
 			File fichierImage = new File("image.jpg");
