@@ -32,6 +32,8 @@ import java.util.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 import com.sun.prism.Graphics;
 
@@ -55,24 +57,41 @@ public class Fenetre extends JFrame implements Observer {
 	private JPanel espaceTravail;
 	private JButton undo = new JButton("Undo");
 	private JButton aide = new JButton("Aide");
+	private JMenuBar menu = new JMenuBar();
+	private JMenu undoAction = new JMenu("Undo");
+	private JMenu openImgAction = new JMenu("Open Image");
+	private JMenu saveAction = new JMenu("Save");
+	private static JMenu exitAction = new JMenu("Exit");
 
 	public Fenetre(Modele aModele, Controleur aControleur) {
 		espaceTravail = new JPanel();
 
 		trouverImage();
+		
 		modele = aModele;
 		controleur = aControleur;
+		
+		
 		this.setLayout(new GridLayout(2, 2));
 		// this.add(menuBar, BorderLayout.NORTH);
 		vignette = new VueVignette(1, image);
 		vue1 = new VueModifiable(1, image, aControleur);
 		vue2 = new VueModifiable(2, image, aControleur);
+		
 		espaceTravail.add(undo);
 		espaceTravail.add(aide);
+		
+		menu.add(openImgAction);
+		menu.add(saveAction);
+		menu.add(undoAction);
+		menu.add(exitAction);
+		
 		this.add(vignette, BorderLayout.SOUTH);
 		this.add(vue1);
 		this.add(vue2);
 		this.add(espaceTravail);
+		this.setJMenuBar(menu);
+		
 		undo.addActionListener(aControleur);
 		vue1.addMouseListener(aControleur);
 		vue1.addMouseMotionListener(aControleur);
@@ -83,10 +102,13 @@ public class Fenetre extends JFrame implements Observer {
 				JOptionPane.showMessageDialog(aide, "Cliquez et glissez les images pour les déplacer. Utilisez la roulette de votre souris pour zoomer sur l'image sur laquelle votre souris plane. ");
 			}
 		});
-
+		
+		undoAction.addMenuListener(aControleur);
+		exitAction.addMenuListener(aControleur);
+		
 		this.addMouseWheelListener(aControleur);
 
-		this.setPreferredSize(new Dimension(202, 202)); // Ajuste la dimension
+		this.setPreferredSize(new Dimension(500, 500)); // Ajuste la dimension
 		pack();// de la fenÃªtre
 		// principale selon
 		// celle de ses composants
@@ -106,6 +128,10 @@ public class Fenetre extends JFrame implements Observer {
 		} catch (IOException e) {
 		}
 
+	}
+	
+	public static JMenu getexit() {
+		return exitAction;
 	}
 
 	@Override

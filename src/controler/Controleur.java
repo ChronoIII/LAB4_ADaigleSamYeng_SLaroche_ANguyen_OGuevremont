@@ -27,14 +27,17 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
+import vue.Fenetre;
 import vue.VueModifiable;
 import model.Modele;
 
 public class Controleur implements MouseListener, MouseWheelListener,
-		MouseMotionListener, ActionListener {
+		MouseMotionListener, ActionListener, MenuListener {
 
-	private CreateurCommande commandes;
+	private CreateurCommande creatorComm;
 	private Modele modele = null;
 	private int idEnCours;
 	private int idClique;
@@ -50,7 +53,7 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	 */
 	public Controleur(Modele aModele) {
 		modele = aModele;
-		commandes = new CreateurCommande();
+		creatorComm = new CreateurCommande();
 	}
 
 	// ou qqch du genre
@@ -58,7 +61,7 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	// commande = commandes.deplacer();
 	// commande.execute();}
 	// par exemple
-
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		this.idClique = ((VueModifiable) e.getSource()).getId();
@@ -90,14 +93,14 @@ public class Controleur implements MouseListener, MouseWheelListener,
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
-		commandes.zoom(idEnCours, arg0.getWheelRotation());
+		creatorComm.zoom(idEnCours, arg0.getWheelRotation());
 		derniereAction=idEnCours;
 
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
-		commandes.deplacer(idClique, deplacementX - actuelX, deplacementX
+		creatorComm.deplacer(idClique, deplacementX - actuelX, deplacementX
 				- actuelX);
 		derniereAction=idEnCours;
 	}
@@ -108,8 +111,25 @@ public class Controleur implements MouseListener, MouseWheelListener,
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		commandes.undo(derniereAction);
-
+		creatorComm.undo(derniereAction);
 	}
 
+	@Override
+	public void menuCanceled(MenuEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void menuDeselected(MenuEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void menuSelected(MenuEvent arg0) {
+		if (arg0.getSource().equals(Fenetre.getexit())) {
+			creatorComm.fermer().execute();
+		}
+	}
 }
