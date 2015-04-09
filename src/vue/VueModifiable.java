@@ -24,7 +24,6 @@ public class VueModifiable extends JPanel implements Observer {
 	public VueModifiable(int id, Image image, Controleur contrl) {
 		this.image = image;
 		this.id = id;
-
 	}
 
 	public void update() {
@@ -45,6 +44,8 @@ public class VueModifiable extends JPanel implements Observer {
 
 		super.paintComponent(g);
 		g.drawImage(image, x, y, zoom, zoom, this);
+		g.drawRect(0,0 , 100, 100);
+		
 
 	}
 

@@ -9,18 +9,21 @@ Projet: Laboratoire # 4
 Chargé de cours : Francis Cardinal
 Chargé de laboratoire : Patrice Boucher
 Date créé: 2015-05-01
-*******************************************************
+ *******************************************************
 Historique des modifications
-*******************************************************
+ *******************************************************
 2015-05-01 Version initiale
-*******************************************************/ 
+ *******************************************************/
 
 package vue;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
@@ -50,9 +53,12 @@ public class Fenetre extends JFrame implements Observer {
 	private Modele modele = null;
 	private Controleur controleur = null;
 	private JPanel espaceTravail;
+	private JButton undo = new JButton("Undo");
+	private JButton aide = new JButton("Aide");
 
 	public Fenetre(Modele aModele, Controleur aControleur) {
 		espaceTravail = new JPanel();
+
 		trouverImage();
 		modele = aModele;
 		controleur = aControleur;
@@ -61,22 +67,31 @@ public class Fenetre extends JFrame implements Observer {
 		vignette = new VueVignette(1, image);
 		vue1 = new VueModifiable(1, image, aControleur);
 		vue2 = new VueModifiable(2, image, aControleur);
-
+		espaceTravail.add(undo);
+		espaceTravail.add(aide);
 		this.add(vignette, BorderLayout.SOUTH);
 		this.add(vue1);
 		this.add(vue2);
+		this.add(espaceTravail);
+		undo.addActionListener(aControleur);
 		vue1.addMouseListener(aControleur);
 		vue1.addMouseMotionListener(aControleur);
 		vue2.addMouseMotionListener(aControleur);
 		vue2.addMouseListener(aControleur);
+		aide.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(aide, "Cliquez et glissez les images pour les déplacer. Utilisez la roulette de votre souris pour zoomer sur l'image sur laquelle votre souris plane. ");
+			}
+		});
+
 		this.addMouseWheelListener(aControleur);
 
-		this.setPreferredSize(new Dimension(image.getHeight(null) * 2, image
-				.getHeight(null) * 2)); // Ajuste la dimension
+		this.setPreferredSize(new Dimension(202, 202)); // Ajuste la dimension
 		pack();// de la fenÃªtre
 		// principale selon
 		// celle de ses composants
 		this.setVisible(true); // Rend la fenÃªtre principale visible.
+		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // ... Ã  rÃ©viser
 																// selon le
 																// comportement

@@ -29,7 +29,7 @@ public class FabriqueMVC {
 		a = "avant" + a + "arrrière";
 		System.out.println(a);
 
-		//FabriqueMVC creator = new FabriqueMVC();
+		FabriqueMVC creator = new FabriqueMVC();
 	}
 
 }

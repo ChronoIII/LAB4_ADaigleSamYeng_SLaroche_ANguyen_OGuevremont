@@ -22,6 +22,7 @@ public class VueVignette extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 5, 5, 100, 100, this);
+		g.drawImage(image, 0, 0, 100, 100, this);
+		g.drawRect(0, 0, 100, 100);
 	}
 }

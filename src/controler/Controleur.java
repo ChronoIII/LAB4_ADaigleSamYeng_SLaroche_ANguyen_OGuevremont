@@ -9,26 +9,30 @@ Projet: Laboratoire # 4
 Chargé de cours : Francis Cardinal
 Chargé de laboratoire : Patrice Boucher
 Date créé: 2015-05-01
-*******************************************************
+ *******************************************************
 Historique des modifications
-*******************************************************
+ *******************************************************
 2015-05-01 Version initiale
-*******************************************************/ 
+ *******************************************************/
 
 package controler;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import vue.VueModifiable;
 import model.Modele;
 
-
 public class Controleur implements MouseListener, MouseWheelListener,
-		MouseMotionListener {
+		MouseMotionListener, ActionListener {
 
 	private CreateurCommande commandes;
 	private Modele modele = null;
@@ -38,6 +42,7 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	private int deplacementY;
 	private int actuelX;
 	private int actuelY;
+	private int derniereAction;
 
 	/**
 	 * 
@@ -86,6 +91,7 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 		commandes.zoom(idEnCours, arg0.getWheelRotation());
+		derniereAction=idEnCours;
 
 	}
 
@@ -93,11 +99,17 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	public void mouseDragged(MouseEvent arg0) {
 		commandes.deplacer(idClique, deplacementX - actuelX, deplacementX
 				- actuelX);
-
+		derniereAction=idEnCours;
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		commandes.undo(derniereAction);
+
 	}
 
 }
