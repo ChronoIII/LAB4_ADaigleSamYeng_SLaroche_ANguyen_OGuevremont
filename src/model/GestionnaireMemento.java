@@ -17,9 +17,10 @@ Historique des modifications
 
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GestionnaireMemento {
+public class GestionnaireMemento implements Serializable{
 	private ArrayList<Memento> mementos = new ArrayList<Memento>();
 
 	public void addState(Memento aMemento) { //ajoute state dans la liste

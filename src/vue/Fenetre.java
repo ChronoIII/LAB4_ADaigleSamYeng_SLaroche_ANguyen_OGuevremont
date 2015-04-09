@@ -95,7 +95,9 @@ public class Fenetre extends JFrame implements Observer {
 		this.add(espaceTravail);
 		this.setJMenuBar(menu);
 		
-		openActionMenu.addMouseListener(aControleur);
+		openActionMenu.addMouseListener(aControleur.openActionPerformed());
+		saveActionMenu.addMouseListener(aControleur.saveActionPerformed());
+		exitActionMenu.addMouseListener(aControleur.fermerActionPerformed());
 		undoButton.addActionListener(aControleur.undoActionPerformed());
 		vignette.addMouseListener(aControleur);
 		vignette.addMouseMotionListener(aControleur);
@@ -108,10 +110,6 @@ public class Fenetre extends JFrame implements Observer {
 				JOptionPane.showMessageDialog(aideButton, "Cliquez et glissez les images pour les déplacer. Utilisez la roulette de votre souris pour zoomer sur l'image sur laquelle votre souris plane. ");
 			}
 		});
-		
-		//undoAction.addMenuListener(aControleur);
-		exitActionMenu.addMenuListener(aControleur.fermerActionPerformed());
-		//bouttonDeplaerRight.addMouseListener(aControleur.deplacerActionPerformed(aId, 10, 0);
 		
 		this.addMouseWheelListener(aControleur);
 
@@ -129,7 +127,7 @@ public class Fenetre extends JFrame implements Observer {
 	}
 
 	public void trouverImage() {
-		image= Modele.getInstance().getIllustration().getImage();
+		image= Modele.getInstance().getImage();
 	}
 
 	@Override

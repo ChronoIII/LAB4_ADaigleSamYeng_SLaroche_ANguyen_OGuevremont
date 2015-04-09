@@ -17,7 +17,9 @@ Historique des modifications
 
 package model;
 
-public class Memento {
+import java.io.Serializable;
+
+public class Memento implements Serializable{
 	private String state;
 
 	public Memento(String state) {

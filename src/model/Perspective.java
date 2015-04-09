@@ -17,7 +17,9 @@ Historique des modifications
 
 package model;
 
-public class Perspective {
+import java.io.Serializable;
+
+public class Perspective implements Serializable{
 	private int id;
 	private int x;
 	private int y;

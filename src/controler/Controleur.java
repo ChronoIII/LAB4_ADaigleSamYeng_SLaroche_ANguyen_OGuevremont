@@ -28,6 +28,7 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
+import javax.swing.JOptionPane;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -35,7 +36,7 @@ import vue.*;
 import model.Modele;
 
 public class Controleur implements MouseListener, MouseWheelListener,
-		MouseMotionListener, ActionListener, MenuListener, Cloneable {
+		MouseMotionListener, ActionListener, Cloneable {
 
 	private CreateurCommande creatorComm;
 	private Commande comm;
@@ -58,16 +59,19 @@ public class Controleur implements MouseListener, MouseWheelListener,
 		creatorComm = new CreateurCommande();
 	}
 
-	// ou qqch du genre
-	// si (déplacer){
-	// commande = commandes.deplacer();
-	// commande.execute();}
-	// par exemple
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		this.idClique = ((VueModifiable) e.getSource()).getId();
+		if (e.getSource() instanceof VueModifiable) {
+			this.idClique = ((VueModifiable) e.getSource()).getId();
+		}
+		if (e.getSource() instanceof JMenu) {
+			comm.execute();
+		}
+	}
 
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		comm.execute();
 	}
 
 	public int getIdEnCours() {
@@ -78,13 +82,7 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	public void mouseEntered(MouseEvent e) {
 		if (e.getSource() instanceof VueModifiable) {
 			this.idEnCours = ((VueModifiable) e.getSource()).getId();
-			System.out.println("idEnCours:" + idEnCours);
 		}
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		
 	}
 
 	@Override
@@ -117,36 +115,6 @@ public class Controleur implements MouseListener, MouseWheelListener,
 		derniereAction = idEnCours;
 	}
 
-	@Override
-	public void mouseDragged(MouseEvent arg0) {
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) {
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		comm.execute();
-	}
-
-	@Override
-	public void menuCanceled(MenuEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void menuDeselected(MenuEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void menuSelected(MenuEvent arg0) {
-		comm.execute();
-	}
-
 	public Controleur fermerActionPerformed() {
 		comm = creatorComm.fermer();
 		try {
@@ -157,21 +125,21 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	}
 
 	public Controleur openActionPerformed() {
-		return this;
+		comm = creatorComm.open(null);
+		try {
+			return ((Controleur) this.clone());
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
 	}
 
 	public Controleur saveActionPerformed() {
-		return this;
-	}
-
-	public Controleur zoomActionPerformed() {
-		return this;
-	}
-
-	public Controleur deplacerActionPerformed(int aId, int aVariationX,
-			int aVariationY) {
-		comm = creatorComm.deplacer(aId, aVariationX, aVariationY);
-		return this;
+		comm = creatorComm.save();
+		try {
+			return ((Controleur) this.clone());
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
 	}
 
 	public Controleur undoActionPerformed() {
@@ -182,4 +150,17 @@ public class Controleur implements MouseListener, MouseWheelListener,
 			return null;
 		}
 	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+	}
+
 }

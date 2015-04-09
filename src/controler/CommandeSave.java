@@ -9,26 +9,34 @@ Projet: Laboratoire # 4
 Chargé de cours : Francis Cardinal
 Chargé de laboratoire : Patrice Boucher
 Date créé: 2015-05-01
-*******************************************************
+ *******************************************************
 Historique des modifications
-*******************************************************
+ *******************************************************
 2015-05-01 Version initiale
-*******************************************************/ 
+ *******************************************************/
 
 package controler;
+
+import javax.swing.JOptionPane;
 
 import model.*;
 
 public class CommandeSave extends Commande {
-	
-	private String nameSave = "";
 
 	public CommandeSave() {
-		nameSave = "illu1";
 	}
-	
+
 	@Override
 	public void execute() {
-		Modele.getInstance().save(nameSave);
+		try {
+			String name = JOptionPane
+					.showInputDialog("Quel nom voulez-vous donner à votre fichier?");
+			while (!name.matches("[a-zA-Z0-9]+")) {
+				name = JOptionPane
+						.showInputDialog("Veuillez n'entrer que des lettres ou des chiffres. Quel nom voulez-vous donner à votre fichier?");
+			}
+			Modele.getInstance().save(name);
+		} catch (NullPointerException e) {
+		}
 	}
 }

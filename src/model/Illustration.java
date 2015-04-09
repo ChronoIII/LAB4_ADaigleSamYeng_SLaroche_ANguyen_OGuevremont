@@ -27,10 +27,8 @@ import javax.imageio.ImageIO;
 public class Illustration implements Serializable {
 
 	private Perspective[] perspectives;
-	private Image image;
 
-	public Illustration(Image aImage) {
-		image=aImage;
+	public Illustration() {
 		Perspective vignette = new Vignette();
 		Perspective premPers = new Perspective();
 		Perspective deuxPers = new Perspective();
@@ -51,9 +49,6 @@ public class Illustration implements Serializable {
 		return perspective;
 	}
 
-	public Image getImage() {
-		return image;
-	}
 
 	
 }

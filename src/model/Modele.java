@@ -31,6 +31,7 @@ import javax.imageio.ImageIO;
 public class Modele extends Observable {
 	private static Modele instance;
 	private Illustration illustration;
+	private Image image;
 
 	private Modele() {
 		createIllustration();
@@ -61,16 +62,20 @@ public class Modele extends Observable {
 		return illustration;
 	}
 
+	public Image getImage() {
+		return image;
+	}
+
 	// public void createIllustration(Image img) {
 	public void createIllustration() {
+		File fichierImage = new File("image.jpg");
+		image = null;
+		try {
+			image = ImageIO.read(fichierImage);
+		} catch (IOException e) {
+		}
 		if (illustration == null) {
-			File fichierImage = new File("image.jpg");
-			Image image = null;
-			try {
-				image = ImageIO.read(fichierImage);
-			} catch (IOException e) {
-			}
-			illustration = new Illustration(image);
+			illustration = new Illustration();
 		}
 	}
 
@@ -83,12 +88,12 @@ public class Modele extends Observable {
 
 		try {
 
-			FileInputStream fileIn = new FileInputStream(path);
+			FileInputStream fileIn = new FileInputStream("test.fif");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			illustration = (Illustration) in.readObject();
 			in.close();
 			fileIn.close();
-
+			notifierChangement();
 		} catch (IOException i) {
 			i.printStackTrace();
 
