@@ -17,6 +17,9 @@ Historique des modifications
 
 package model;
 
+/*
+ * cette perspective représente l'image d'origine sans les modifications
+ */
 public class Vignette extends Perspective {
 	private static int x = 0;
 	private static int y = 0;

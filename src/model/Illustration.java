@@ -21,13 +21,15 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-
 import javax.imageio.ImageIO;
 
-public class Illustration implements Serializable {
+public class Illustration implements Serializable {//l'illustration peut être sauvegarder en fichier
 
 	private Perspective[] perspectives;
 
+	/**
+	 * constructeur
+	 */
 	public Illustration() {
 		Perspective vignette = new Vignette();
 		Perspective premPers = new Perspective();
@@ -38,6 +40,11 @@ public class Illustration implements Serializable {
 		perspectives[2] = deuxPers;
 	}
 
+	/**
+	 * getter pour les persperctives
+	 * @param id
+	 * @return perspective
+	 */
 	public Perspective getPerspectiveById(int id) {
 		Perspective perspective = new Perspective();
 		for (Perspective p : perspectives) {
@@ -48,7 +55,4 @@ public class Illustration implements Serializable {
 		}
 		return perspective;
 	}
-
-
-	
 }

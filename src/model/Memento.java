@@ -19,13 +19,21 @@ package model;
 
 import java.io.Serializable;
 
-public class Memento implements Serializable{
+public class Memento implements Serializable{//les memento doivent être serializable pour que l'illustration soit serializable
 	private String state;
 
+	/**
+	 * toute l'état des l'image est conserv. dans un string
+	 * @param state
+	 */
 	public Memento(String state) {
 		this.state = state;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getState() {
 		return state;
 	}

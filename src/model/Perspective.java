@@ -19,18 +19,16 @@ package model;
 
 import java.io.Serializable;
 
-public class Perspective implements Serializable{
-	private int id;
+/*
+ * un perspective représente les propriétés de l'image et ils sont modifiable
+ */
+public class Perspective implements Serializable{//les perspectives doivent être serializable pour que l'illustration soit serializable
+	private int id;//l'identidiant de la perspective
 	private int x;
 	private int y;
 	private double zoom;
 
-	// Amelie: J'assume que le memento vient ici selon le UML? x)
-
 	GestionnaireMemento gestionnaire = new GestionnaireMemento();
-
-	// pour changer de state il faut faire orignator.setState ("qqch") et
-	// sauvegarder c'est gestionnaire.addState(orignator.sauvegardeAMemento());
 
 	private static int nextId = 0;
 
@@ -63,6 +61,11 @@ public class Perspective implements Serializable{
 		nextId++;
 	}
 
+	/**
+	 * permet de changer la position de l'image selon le déplacement de la souris
+	 * @param aVariationX
+	 * @param aVariationY
+	 */
 	public void deplacer(int aVariationX, int aVariationY) {
 		if (!(this instanceof Vignette)) {
 			x = x + aVariationX;
@@ -72,6 +75,10 @@ public class Perspective implements Serializable{
 		}
 	}
 
+	/**
+	 * permet de changer le zoom de l'image selon la roulette
+	 * @param variation
+	 */
 	public void zoomer(double variation) {
 		if (zoom + variation < 10 && zoom + variation > 0.01
 				&& !(this instanceof Vignette)) {
@@ -81,6 +88,9 @@ public class Perspective implements Serializable{
 		}
 	}
 
+	/**
+	 * permet de revenir d'une perspective précédante, à l'aide des mementos et du gestionnaire du memento
+	 */
 	public void undo() {
 		try {
 			setMemento(gestionnaire.getPreviousState());
@@ -91,6 +101,10 @@ public class Perspective implements Serializable{
 		}
 	}
 
+	/**
+	 * setter pour les mementos
+	 * @param aMemento
+	 */
 	public void setMemento(Memento aMemento) {
 		String state = aMemento.getState();
 		x = Integer.parseInt(state.split(";")[0]);
@@ -98,22 +112,42 @@ public class Perspective implements Serializable{
 		zoom = Double.parseDouble(state.split(";")[2]);
 	}
 
+	/**
+	 * pour instancier un memento
+	 * @return
+	 */
 	public Memento createMemento() {
 		return new Memento(x + ";" + y + ";" + zoom);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getX() {
 		return x;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getY() {
 		return y;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public double getZoom() {
 		return zoom;
 	}
