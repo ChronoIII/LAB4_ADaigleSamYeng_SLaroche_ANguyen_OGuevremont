@@ -13,10 +13,15 @@ Date créé: 2015-05-01
 Historique des modifications
 *******************************************************
 2015-05-01 Version initiale
+
+ 2015-05-07 Finalisation
 *******************************************************/ 
 
 package controler;
 
+/*
+ * Classe abstraite de commade
+ */
 public abstract class Commande {
 
 	public abstract void execute();

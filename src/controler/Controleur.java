@@ -13,6 +13,7 @@ Date créé: 2015-05-01
 Historique des modifications
  *******************************************************
 2015-05-01 Version initiale
+2015-05-07 Finalisation
  *******************************************************/
 
 package controler;
@@ -51,14 +52,17 @@ public class Controleur implements MouseListener, MouseWheelListener,
 	private int derniereAction;
 
 	/**
-	 * 
-	 * @param aModele
+	 * Controleur
+	 * @param aModele Modele du programme
 	 */
 	public Controleur(Modele aModele) {
 		modele = aModele;
 		creatorComm = new CreateurCommande();
 	}
 
+	/*
+	 * Selection l'action appropriée lorsque mouseClicked.
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() instanceof VueModifiable) {
@@ -69,6 +73,9 @@ public class Controleur implements MouseListener, MouseWheelListener,
 		}
 	}
 
+	/*
+	 * Selection l'action appropriée lorsque ActionPerformed.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		comm.execute();
@@ -78,6 +85,9 @@ public class Controleur implements MouseListener, MouseWheelListener,
 		return idEnCours;
 	}
 
+	/*
+	 * Selection l'action appropriée lorsque mouseEntered.
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		if (e.getSource() instanceof VueModifiable) {
@@ -85,6 +95,9 @@ public class Controleur implements MouseListener, MouseWheelListener,
 		}
 	}
 
+	/*
+	 * Selection l'action appropriée lorsque mousePressed.
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (e.getSource() instanceof VueModifiable) {
@@ -94,6 +107,9 @@ public class Controleur implements MouseListener, MouseWheelListener,
 		}
 	}
 
+	/*
+	 * Selection l'action appropriée lorsque mouseReleased.
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (debutX != 0 && debutY != 0) {
@@ -109,12 +125,18 @@ public class Controleur implements MouseListener, MouseWheelListener,
 		derniereAction = idEnCours;
 	}
 
+	/*
+	 * Selection l'action appropriée lorsque mouseWheelMouved.
+	 */
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 		creatorComm.zoom(idEnCours, arg0.getWheelRotation()).execute();
 		derniereAction = idEnCours;
 	}
 
+	/*
+	 * Selection l'action appropriée lorsqu'on appuie sur le bouton Fermer.
+	 */
 	public Controleur fermerActionPerformed() {
 		comm = creatorComm.fermer();
 		try {
@@ -124,6 +146,9 @@ public class Controleur implements MouseListener, MouseWheelListener,
 		}
 	}
 
+	/*
+	 * Selection l'action appropriée lorsqu'on appuie sur le bouton Ouvrir.
+	 */
 	public Controleur openActionPerformed() {
 		comm = creatorComm.open();
 		try {
@@ -133,6 +158,9 @@ public class Controleur implements MouseListener, MouseWheelListener,
 		}
 	}
 
+	/*
+	 * Selection l'action appropriée lorsqu'on appuie sur le bouton Save.
+	 */
 	public Controleur saveActionPerformed() {
 		comm = creatorComm.save();
 		try {
@@ -142,6 +170,9 @@ public class Controleur implements MouseListener, MouseWheelListener,
 		}
 	}
 
+	/*
+	 * Selection l'action appropriée lorsqu'on appuie sur le bouton Undo.
+	 */
 	public Controleur undoActionPerformed() {
 		comm = creatorComm.undo(this);
 		try {

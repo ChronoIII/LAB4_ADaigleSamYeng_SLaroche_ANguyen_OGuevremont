@@ -13,6 +13,7 @@ Date cr��: 2015-05-01
 Historique des modifications
  *******************************************************
 2015-05-01 Version initiale
+2015-09-5 Finalisation
  *******************************************************/
 
 package vue;
@@ -51,7 +52,7 @@ public class Fenetre extends JFrame implements Observer {
 	private JMenuBar menuBar;
 	private Image image;
 	private Modele modele = null;
-	private Controleur controleur = null;
+	private Controleur aControleur = null;
 	private JPanel espaceTravail;
 	private JButton undoButton = new JButton("Undo");
 	private JButton aideButton = new JButton("Aide");
@@ -60,6 +61,9 @@ public class Fenetre extends JFrame implements Observer {
 	private JMenu saveActionMenu = new JMenu("Save");
 	private JMenu exitActionMenu = new JMenu("Exit");
 
+	/*
+	 * Initialise une Fenetre dans laquelle l'application vas se d�rouler
+	 */
 	public Fenetre(Modele aModele, Controleur aControleur) {
 		super("Fantastic Image Fisualisator - Labo4");
 		setLocation(300, 50);
@@ -68,7 +72,7 @@ public class Fenetre extends JFrame implements Observer {
 		trouverImage();
 
 		modele = aModele;
-		controleur = aControleur;
+		this.aControleur = aControleur;
 
 		this.setLayout(new GridLayout(2, 2));
 		// this.add(menuBar, BorderLayout.NORTH);
@@ -82,16 +86,46 @@ public class Fenetre extends JFrame implements Observer {
 		espaceTravail.add(undoButton);
 		espaceTravail.add(aideButton);
 
-		menu.add(openActionMenu);
-		menu.add(saveActionMenu);
-		menu.add(exitActionMenu);
-
 		this.add(vignette);
 		this.add(vue1);
 		this.add(vue2);
 		this.add(espaceTravail);
 		this.setJMenuBar(menu);
+		ajoutListeners();
+		this.setPreferredSize(new Dimension(500, 500)); // Ajuste la dimension
+		pack();// de la fenêtre
+		// principale selon
+		// celle de ses composants
+		this.setVisible(true); // Rend la fenêtre principale visible.
+		this.setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // ... à réviser
+																// selon le
+																// comportement
+																// que vous
+																// désirez ...
+	}
 
+	/*
+	 * Initialise l'image utilis�e dans la fenetre selon le Modele
+	 */
+	public void trouverImage() {
+		image = Modele.getInstance().getImage();
+	}
+
+	
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		trouverImage();
+		for (VueModifiable vm : vues) {
+			vm.setImage(image);
+			vm.update();
+		}
+	}
+
+	/*
+	 * Ajoute les listeners n�cessaires pour que le programme soit fonctionnel
+	 */
+	public void ajoutListeners() {
 		openActionMenu.addMouseListener(aControleur.openActionPerformed());
 		saveActionMenu.addMouseListener(aControleur.saveActionPerformed());
 		exitActionMenu.addMouseListener(aControleur.fermerActionPerformed());
@@ -112,31 +146,9 @@ public class Fenetre extends JFrame implements Observer {
 		});
 
 		this.addMouseWheelListener(aControleur);
-
-		this.setPreferredSize(new Dimension(500, 500)); // Ajuste la dimension
-		pack();// de la fenêtre
-		// principale selon
-		// celle de ses composants
-		this.setVisible(true); // Rend la fenêtre principale visible.
-		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // ... à réviser
-																// selon le
-																// comportement
-																// que vous
-																// désirez ...
-	}
-
-	public void trouverImage() {
-		image = Modele.getInstance().getImage();
-	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		trouverImage();
-		for (VueModifiable vm : vues) {
-			vm.setImage(image);
-			vm.update();
-		}
+		menu.add(openActionMenu);
+		menu.add(saveActionMenu);
+		menu.add(exitActionMenu);
 	}
 
 }

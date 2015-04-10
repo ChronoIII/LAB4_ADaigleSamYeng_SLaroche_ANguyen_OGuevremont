@@ -24,10 +24,16 @@ public class CommandeUndo extends Commande {
 
 	private Controleur controleur;
 
+	/*
+	 * Constructeur
+	 */
 	public CommandeUndo(Controleur aControleur) {
 		controleur = aControleur;
 	}
 
+	/*
+	 * Appele la commande undo pour l'image en cours.
+	 */
 	@Override
 	public void execute() {
 		Perspective aModif = null;

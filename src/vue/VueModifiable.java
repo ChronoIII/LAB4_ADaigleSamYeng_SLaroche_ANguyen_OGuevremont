@@ -1,3 +1,19 @@
+/******************************************************
+ Cours:   LOG121
+ Session: H2015
+ Groupe: 03
+ Projet: Laboratoire # 4
+ Étudiant(e)s: Samuel Laroche, Olivier Gévremont, Amélie Nguyen, Alexemdre Daigle-Sam yeng
+
+
+ Chargé de cours : Francis Cardinal
+ Chargé de laboratoire : Patrice Boucher
+ Date créé: 2015-05-01
+ *******************************************************
+ Historique des modifications
+ *******************************************************
+ 2015-05-01 Version initiale
+ *******************************************************/
 package vue;
 
 import java.awt.*;
@@ -23,11 +39,18 @@ public class VueModifiable extends JPanel implements Observer {
 							// 100px
 	private Controleur controleur;
 
+	/*
+	 * Constructeur
+	 */
 	public VueModifiable(int id, Image image, Controleur contrl) {
 		this.image = image;
 		this.id = id;
 	}
 
+	/*
+	 * Fonction Update du patron Observer qui modifie l'image quand une
+	 * modification est faite.
+	 */
 	public void update() {
 		Perspective base = null;
 		base = Modele.getInstance().getPerspectiveById(id);
@@ -37,6 +60,9 @@ public class VueModifiable extends JPanel implements Observer {
 		repaint();
 	}
 
+	/*
+	 * Affiche l'image
+	 */
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
@@ -46,14 +72,23 @@ public class VueModifiable extends JPanel implements Observer {
 
 	}
 
+	/*
+	 * Retourne le Id de l'image
+	 */
 	public int getId() {
 		return (this.id);
 	}
 
+	/*
+	 * Retourne l'image
+	 */
 	public Image getImage() {
 		return image;
 	}
 
+	/*
+	 * Affixe une image a la vignette
+	 */
 	public void setImage(Image aImg) {
 		image = aImg;
 	}

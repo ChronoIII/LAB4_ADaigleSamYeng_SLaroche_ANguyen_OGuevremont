@@ -25,11 +25,17 @@ public class CommandeZoom extends Commande {
 	private int id;
 	private double variation;
 
+	/*
+	 * Constructeur
+	 */
 	public CommandeZoom(int aId, double aVariation) {
 		variation = aVariation;
 		id = aId;
 	}
 
+	/*
+	 * Modifie le zoom de la perspective en cours
+	 */
 	@Override
 	public void execute() {
 		Perspective aModif = null;

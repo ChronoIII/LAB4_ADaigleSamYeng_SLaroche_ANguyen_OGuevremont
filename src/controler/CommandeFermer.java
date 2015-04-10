@@ -18,6 +18,9 @@ Historique des modifications
 package controler;
 
 public class CommandeFermer extends Commande {
+	/*
+	 * Ferme la fenetre
+	 */
 	@Override
 	public void execute() {
 		System.exit(0);

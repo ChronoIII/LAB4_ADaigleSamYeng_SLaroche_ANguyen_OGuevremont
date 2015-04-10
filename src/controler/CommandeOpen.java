@@ -30,6 +30,9 @@ public class CommandeOpen extends Commande {
 
 	}
 
+	/*
+	 * Modifie l'image ou ouvre un fichier deja existant selon le Type de fichier selectionné
+	 */
 	@Override
 	public void execute() {
 		JFileChooser choix = new JFileChooser();

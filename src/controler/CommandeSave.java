@@ -26,6 +26,9 @@ public class CommandeSave extends Commande {
 	public CommandeSave() {
 	}
 
+	/*
+	 * Enregistre le fichier avec le nom choisi par l'utilisateur
+	 */
 	@Override
 	public void execute() {
 		try {
